@@ -13,7 +13,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get('All')
-  async GetAllUser(): Promise<User[]> {
+  async GetAllUser(): Promise<Omit<User, 'password'>[]> {
     return await this.usersService.findAll();
   }
 

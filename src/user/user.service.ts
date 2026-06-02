@@ -11,12 +11,17 @@ export class UserService {
     private usersRepository: Repository<User>,
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  findAll(): Promise<Omit<User, 'password'>[]> {
+    return this.usersRepository.find({
+      select: ['id', 'username', 'firstname', 'lastname'],
+    });
   }
 
-  findUserById(id: number): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  findUserById(id: number): Promise<Omit<User, 'password'>> {
+    return this.usersRepository.findOne({
+      where: { id },
+      select: ['id', 'username', 'firstname', 'lastname'],
+    });
   }
 
   remove(id: number): Promise<DeleteResult> {
@@ -41,6 +46,7 @@ export class UserService {
       where: {
         username: username,
       },
+      select: ['id', 'username', 'firstname', 'lastname', 'password'],
     });
     return user;
   }

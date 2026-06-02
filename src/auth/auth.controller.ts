@@ -16,7 +16,7 @@ import {
 import { Public } from './public.declaration';
 import { validate } from 'class-validator';
 import { CreateUserInput } from '../user/dto/user.dto';
-import { LoginInput } from './dto/login.dto';
+import { LoginInput, LoginResponse } from './dto/login.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -24,7 +24,10 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: 'Login as user' })
-  @ApiCreatedResponse({ description: 'Logging successfilly complite' })
+  @ApiCreatedResponse({
+    description: 'Logging successfilly complite',
+    type: LoginResponse,
+  })
   @ApiBody({ type: LoginInput })
   @HttpCode(HttpStatus.OK)
   @Public()
