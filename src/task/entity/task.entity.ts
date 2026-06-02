@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { number } from 'joi';
 import { CoreEntity } from 'src/aplication/entities/core.entity';
-import { User } from 'src/user/user.entity';
-import { Column, Entity, ManyToOne, OneToOne } from 'typeorm';
+import { User } from 'src/user/entity/user.entity';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'tasks' })
 export class Task extends CoreEntity {

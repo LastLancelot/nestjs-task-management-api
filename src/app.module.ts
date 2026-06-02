@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Task } from './task/task.entity';
-import { User } from './user/user.entity';
+import { Task } from './task/entity/task.entity';
+import { User } from './user/entity/user.entity';
 import { Cooperation } from './user-cooperation/cooperation.entity';
 import { AuthModule } from './auth/auth.module';
 

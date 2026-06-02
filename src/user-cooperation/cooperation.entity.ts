@@ -1,6 +1,6 @@
 import { CoreEntity } from 'src/aplication/entities/core.entity';
-import { User } from 'src/user/user.entity';
-import { Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { User } from 'src/user/entity/user.entity';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'cooperation' })
 export class Cooperation extends CoreEntity {

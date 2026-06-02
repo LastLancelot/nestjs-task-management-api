@@ -1,9 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/user/entity/user.entity';
 import { DeleteResult, Repository } from 'typeorm';
-import { userCreateDto } from './user.dto';
-import { validate } from 'class-validator';
+import { CreateUserInput } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -24,7 +23,7 @@ export class UserService {
     return this.usersRepository.delete(id);
   }
 
-  async createUser(createUserSchema: userCreateDto): Promise<User> {
+  async createUser(createUserSchema: CreateUserInput): Promise<User> {
     const user = await this.usersRepository.findOne({
       where: {
         username: createUserSchema.username,

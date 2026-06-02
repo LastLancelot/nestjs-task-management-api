@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CoreEntity } from 'src/aplication/entities/core.entity';
-import { Task } from 'src/task/task.entity';
+import { Task } from 'src/task/entity/task.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })

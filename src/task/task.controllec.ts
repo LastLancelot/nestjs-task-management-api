@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -11,8 +13,8 @@ import {
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { TaskService } from './task.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { Task } from './task.entity';
-import { CreateTaskDto } from './task.dto';
+import { Task } from './entity/task.entity';
+import { CreateTaskDto } from './dto/task.dto';
 import { validate } from 'class-validator';
 
 @ApiTags('Task controller')
@@ -42,5 +44,13 @@ export class TaskController {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
     return await this.tasksService.createTask(createTaskDto);
+  }
+
+  @ApiOperation({ summary: 'Delete task' })
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Delete('delete')
+  async deleteTask(@Param('id') taskId: number) {
+    return await this.tasksService.remove(taskId);
   }
 }

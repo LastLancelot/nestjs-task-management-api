@@ -1,27 +1,22 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpException,
   HttpStatus,
   Post,
-  Request,
-  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { User } from 'src/user/user.entity';
 import {
-  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from './auth.guard';
 import { Public } from './public.declaration';
 import { validate } from 'class-validator';
-import { userCreateDto } from 'src/user/user.dto';
+import { CreateUserInput } from '../user/dto/user.dto';
+import { LoginInput } from './dto/login.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -30,27 +25,27 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Login as user' })
   @ApiCreatedResponse({ description: 'Logging successfilly complite' })
-  @ApiBody({ type: User })
+  @ApiBody({ type: LoginInput })
   @HttpCode(HttpStatus.OK)
   @Public()
   @Post('login')
   @HttpCode(200)
-  singIn(@Body() singInDto: Record<string, any>) {
-    return this.authService.singIn(singInDto.username, singInDto.password);
+  async signIn(@Body() signInDto: LoginInput) {
+    return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
   @ApiOperation({ summary: 'Create a new user' })
   @ApiCreatedResponse({ description: 'User has been successfully created' })
-  @ApiBody({ type: User })
+  @ApiBody({ type: CreateUserInput })
   @Public()
-  @Post('register')
+  @Post('signUp')
   @HttpCode(204)
-  async register(@Body() createUserDto: userCreateDto) {
+  async signUp(@Body() createUserDto: CreateUserInput) {
     const errors = await validate(createUserDto);
     if (errors.length > 0) {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
 
-    return await this.authService.singUp(createUserDto);
+    return await this.authService.signUp(createUserDto);
   }
 }

@@ -1,6 +1,6 @@
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity';
+import { User } from './entity/user.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 
